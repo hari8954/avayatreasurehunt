@@ -1,0 +1,78 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Questionnaire</h1>
+    
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for i in object %}
+            <div class="form-group">
+                <label for="q1">{{i.question}}</label>
+                <input type="text" class="form-control" id="q1" name={{question}}>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Submit Answers</button>
+        </form>
+    </div>
+</body>
+</html> -->
+
+<!-- dynamic_answer_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TresureHunt</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container mt-5 form-group">
+    <h1 class="mb-4">Treasure Hunt</h1>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {% if message.tags == 'error' %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <script>
+              // Use jQuery to hide the error message after 2000 milliseconds (2 seconds)
+              $(document).ready(function() {
+                setTimeout(function() {
+                  $('.alert').alert('close');
+                }, 2000);
+              });
+            </script>
+          {% else %}
+            {{ message }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+    <form method="post" action="/submit_answers/" class="container mt-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Submit Answers</button>
+    </form>
+</div>
+<div class="container">
+    <h1 class="text-danger">**All are case insensitive and Put avaya Handle only</h1>
+</div>
+</body>
+</html>
